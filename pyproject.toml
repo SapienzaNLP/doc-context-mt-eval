@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "doc-context-mt-eval"
+version = "0.1.0"
+description = "Document-level Context for Machine Translation Evaluation Framework"
+authors = [
+  { name = "Marina Iuliana Aur", email = "aur@diag.uniroma1.it" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+  "torch==2.10.0",
+  "transformers==4.57.6",
+  "wandb==0.25.0",
+  "pandas==2.3.3",
+  "numpy==2.2.6",
+  "vllm==0.19.0",
+  "unbabel-comet==2.2.7",
+  "json-repair==0.54.3",
+  "span-mt-metrics-eval @ git+https://github.com/sted19/span-mt-metrics-eval.git@d42f003b6e59d6f855a68aad6c42c936946c9867"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
