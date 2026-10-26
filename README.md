@@ -46,7 +46,6 @@ This pipeline relies on two external repositories:
   ```bash
   git clone https://github.com/google-research/mt-metrics-eval.git
   cd mt-metrics-eval
-  git checkout <COMMIT_HASH>  # commit used for the experiments in the paper
   pip install .
   ```
 
