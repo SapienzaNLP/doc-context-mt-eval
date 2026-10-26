@@ -82,12 +82,6 @@ Preprocessed JSONL files are written to:
 
 Each example containing the target translation segment and the document-level information needed by the evaluation configurations.
 
-To build the data for the context-window experiment from Section 6 of the paper (see [Evaluation scenarios](#evaluation-scenarios) for how to run it):
-
-```bash
-bash scripts/01_run_preprocessing_context_windows.sh
-```
-
 ## Evaluation scenarios
 
 To study the impact of document-level context on LLM-based MT evaluation and its interaction with the availability of manually curated references, `src/evaluation/main_evaluation.py` (and the fine-tuning pipeline) evaluate each translation segment under four configurations, crossing two axes: whether the model sees the full source/target document or only the isolated segment (DL vs. SL), and whether it has access to a human reference translation or must rely on the source alone (RB vs. RF):
