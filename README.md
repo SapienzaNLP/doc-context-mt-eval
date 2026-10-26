@@ -130,8 +130,6 @@ The meta-evaluation code in `src/meta_evaluation/` compares the error spans pred
 MODEL_NAME=Qwen3-32B MODEL_PATH=Qwen/Qwen3-32B PAIRS_RAW=wmt24:en-de bash scripts/03_run_meta_evaluation.sh
 ```
 
-Additional scripts cover aggregation across languages (`03_run_meta_evaluation_all_languages.sh`), baseline metrics (`03_run_meta_evaluation_baselines.sh`), and the context-window experiment (`03_run_meta_evaluation_context_windows.sh`). These expect the corresponding metric outputs to have been generated already.
-
 ## Fine-tuning
 
 The fine-tuning code in `src/finetuning/` fine-tunes `Qwen/Qwen3-8B` with LoRA on MQM-style error detection data, training a separate model for each of the four [evaluation scenarios](#evaluation-scenarios).
