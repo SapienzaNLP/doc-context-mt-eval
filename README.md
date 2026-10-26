@@ -142,8 +142,6 @@ Meta-evaluation computes **F1 MPP** with [`span-mt-metrics-eval`](https://github
 MODEL_NAME=Qwen3-32B MODEL_PATH=Qwen/Qwen3-32B PAIRS_RAW=wmt24:en-de bash scripts/03_run_meta_evaluation.sh
 ```
 
-Here `MODEL_NAME` is the short model name and `MODEL_PATH` the Hugging Face ID (in evaluation, `MODEL_NAME` is the Hugging Face ID).
-
 ## Fine-tuning
 
 Fine-tuning trains `Qwen/Qwen3-8B` with LoRA on MQM-style error detection data, one model for each of the four [evaluation scenarios](#evaluation-scenarios).
