@@ -63,8 +63,8 @@ The experiments run in four stages. Each stage is launched by a shell script in 
 3. **Meta-evaluation** (code in `src/meta_evaluation/`): compares the error spans predicted by the LLM with human annotations, using a severity-weighted variant of MPP (Match with Partial overlap and Partial credit). It is launched by one of four scripts:
    - `scripts/03_run_meta_evaluation.sh`: scores the evaluation runs for each language pair;
    - `scripts/03_run_meta_evaluation_all_languages.sh`: aggregates results across language pairs;
-   - `scripts/03_run_meta_evaluation_baselines.sh`: scores the baseline metric, XCOMET-XL;
    - `scripts/03_run_meta_evaluation_baselines.sh`: scores the baseline metrics (XCOMET-XL, both reference-based and reference-free);
+   - `scripts/03_run_meta_evaluation_context_windows.sh`: scores the context-window experiment.
 4. **Fine-tuning** (code in `src/finetuning/`): fine-tunes a model with LoRA on MQM-style error detection data, training one model for each [evaluation scenario](#evaluation-scenarios). It is launched by `scripts/04_run_finetuning.sh`.
 
 ## Data
