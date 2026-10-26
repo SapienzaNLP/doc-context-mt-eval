@@ -5,6 +5,10 @@
     LLM-based Machine Translation Evaluation
 </h1>
 
+<p align="center">
+  <img src="media/overview_approach.png" alt="Overview of the paper" width="100%">
+</p>
+
 [![Paper](https://img.shields.io/badge/EMNLP%202026%20Paper-red)](https://aclanthology.org/2026.findings-emnlp.1839/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MT Metrics Eval](https://shields.io/badge/-MT%20Metrics%20Eval-green?style=flat&logo=github&labelColor=gray)](https://github.com/google-research/mt-metrics-eval)
@@ -19,12 +23,13 @@ This repository contains the official code for [**Exploring the Impact of Docume
 
 ```
 doc-context-mt-eval/
+├── media/                    # Figures used in this README
 ├── src/
 │   ├── data_preprocessing/   # 1. Prepares the WMT data with document context
 │   ├── evaluation/           # 2. Runs LLM-based error detection
 │   ├── meta_evaluation/      # 3. Compares predicted errors with human annotations
 │   └── finetuning/           # 4. Fine-tunes models with LoRA
-├── scripts/                  # Shell scripts that launch each stage (01_ to 04_)
+├── scripts/                  # Shell scripts that launch each stage
 ├── data-wmt/                 # WMT data (created on first run, not included)
 ├── outputs/                  # Evaluation results and fine-tuned models (created on first run, not included)
 ├── pyproject.toml
