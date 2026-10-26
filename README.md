@@ -24,7 +24,7 @@ doc-context-mt-eval/
 │   ├── evaluation/           # Prompts, model inference, error-span extraction
 │   ├── meta_evaluation/      # Span matching and meta-evaluation metrics
 │   └── finetuning/           # Training-data preparation and LoRA fine-tuning
-├── scripts/                  # Preprocessing, evaluation, meta-evaluation, fine-tuning drivers
+├── scripts/                  # Preprocessing, evaluation, meta-evaluation, fine-tuning scripts
 ├── pyproject.toml
 └── .gitignore
 ```
@@ -35,30 +35,38 @@ doc-context-mt-eval/
 pip install -e .
 ```
 
-Python 3.9+. Core dependencies are version-pinned in `pyproject.toml` to the exact versions used to produce the results in this repo. Install from a fresh environment to reproduce them closely.
+Python 3.9+. Core dependencies are version-pinned in `pyproject.toml` to the exact versions used to produce the results in this repo.
 
 ## External dependencies
 
-This pipeline builds on top of two external repositories:
+This pipeline relies on two external repositories:
 
-- [`mt-metrics-eval`](https://github.com/google-research/mt-metrics-eval): WMT metrics meta-evaluation toolkit, also used to fetch and cache the WMT data.
+- [`mt-metrics-eval`](https://github.com/google-research/mt-metrics-eval): the WMT metrics meta-evaluation toolkit, also used to download and cache the WMT data. It must be installed manually:
 
-```bash
-git clone https://github.com/google-research/mt-metrics-eval.git
-cd mt-metrics-eval
-pip install .
-```
+  ```bash
+  git clone https://github.com/google-research/mt-metrics-eval.git
+  cd mt-metrics-eval
+  git checkout <COMMIT_HASH>  # commit used for the experiments in the paper
+  pip install .
+  ```
 
-For an exact reproduction, record the revision of `mt-metrics-eval` used for data preparation.
-
-- [`span-mt-metrics-eval`](https://github.com/sted19/span-mt-metrics-eval): implements the MPP (Match with Partial overlap and Partial credit) span-matching metric used in meta-evaluation. Installs automatically via `pip install -e .`, no manual clone needed.
+- [`span-mt-metrics-eval`](https://github.com/sted19/span-mt-metrics-eval): implements MPP (Match with Partial overlap and Partial credit), the span-matching metric used in meta-evaluation. It is installed automatically as a dependency when you run `pip install -e .` in this repository, so it does not need to be cloned separately.
 
 ## Pipeline
 
-1. **Preprocessing**: `src/data_preprocessing/` turns raw WMT MQM data into JSONL, grouping segments by document and attaching each one's surrounding context, driven by `scripts/01_run_preprocessing_*.sh`.
-2. **Evaluation**: `src/evaluation/` runs LLM-based MT error detection across the [evaluation scenarios](#evaluation-scenarios) below, driven by `scripts/02_run_evaluation.sh`.
-3. **Meta-evaluation**: `src/meta_evaluation/` scores predicted error spans against human judgments using a severity-weighted variant of MPP (Match with Partial overlap and Partial credit), driven by `scripts/03_run_meta_evaluation*.sh`.
-4. **Fine-tuning**: `src/finetuning/` fine-tunes models (LoRA) separately for each of the [evaluation scenarios](#evaluation-scenarios) on MQM-style error detection data, driven by `scripts/04_run_finetuning.sh`.
+The experiments run in four stages. Each stage is launched by a shell script in `scripts/`, which calls the Python code in the corresponding `src/` subfolder. Run the stages in order:
+
+1. **Preprocessing** (code in `src/data_preprocessing/`): converts the raw WMT MQM data into JSONL files, grouping segments by document and attaching the surrounding document context to each segment. The entry point is `src/data_preprocessing/main_preprocessing.py`, launched by one of three scripts:
+   - `scripts/01_run_preprocessing_eval.sh`: builds the test data (WMT24 and WMT25);
+   - `scripts/01_run_preprocessing_train.sh`: builds the training data for fine-tuning (WMT22 and WMT23);
+   - `scripts/01_run_preprocessing_context_windows.sh`: builds the data for the context-window experiment (Section 6 of the paper).
+2. **Evaluation** (code in `src/evaluation/`): prompts an LLM to detect translation errors under each of the [evaluation scenarios](#evaluation-scenarios) described below. The entry point is `src/evaluation/main_evaluation.py`, launched by `scripts/02_run_evaluation.sh`.
+3. **Meta-evaluation** (code in `src/meta_evaluation/`): compares the error spans predicted by the LLM with human annotations, using a severity-weighted variant of MPP (Match with Partial overlap and Partial credit). It is launched by one of four scripts:
+   - `scripts/03_run_meta_evaluation.sh`: scores the evaluation runs for each language pair;
+   - `scripts/03_run_meta_evaluation_all_languages.sh`: aggregates results across language pairs;
+   - `scripts/03_run_meta_evaluation_baselines.sh`: scores the baseline metric, XCOMET-XL;
+   - `scripts/03_run_meta_evaluation_baselines.sh`: scores the baseline metrics (XCOMET-XL, both reference-based and reference-free);
+4. **Fine-tuning** (code in `src/finetuning/`): fine-tunes a model with LoRA on MQM-style error detection data, training one model for each [evaluation scenario](#evaluation-scenarios). It is launched by `scripts/04_run_finetuning.sh`.
 
 ## Data
 
@@ -115,27 +123,27 @@ python src/evaluation/main_evaluation.py \
     --wandb_mode offline
 ```
 
-The matching meta-evaluation driver is `scripts/03_run_meta_evaluation_context_windows.sh`. Its `MODEL_NAME`, `MODEL_PATH`, `DATASET`, `LP`, and `MAX_CONTEXT` settings must match the evaluation runs.
+The matching meta-evaluation scripts is `scripts/03_run_meta_evaluation_context_windows.sh`. Its `MODEL_NAME`, `MODEL_PATH`, `DATASET`, `LP`, and `MAX_CONTEXT` settings must match the evaluation runs.
 
 ## Meta-evaluation
 
-`src/meta_evaluation/` scores the error spans produced by evaluation against the gold human annotations, computing the **F1 MPP** (Match with Partial overlap and Partial credit) via [`span-mt-metrics-eval`](https://github.com/sted19/span-mt-metrics-eval), with optimal bipartite matching and severity weights `minor=0.2`, `major=1`, `critical=1`.
+The meta-evaluation code in `src/meta_evaluation/` compares the error spans predicted during evaluation with the gold human annotations and computes **F1 MPP** (Match with Partial overlap and Partial credit) using [`span-mt-metrics-eval`](https://github.com/sted19/span-mt-metrics-eval), with optimal bipartite matching and severity weights `minor=0.2`, `major=1`, `critical=1`.
 
 ```bash
 MODEL_NAME=Qwen3-32B MODEL_PATH=Qwen/Qwen3-32B PAIRS_RAW=wmt24:en-de bash scripts/03_run_meta_evaluation.sh
 ```
 
-Additional drivers cover aggregation across languages (`03_run_meta_evaluation_all_languages.sh`), baseline metrics (`03_run_meta_evaluation_baselines.sh`), and the context-window experiment (`03_run_meta_evaluation_context_windows.sh`). These expect the corresponding metric outputs to have been generated already.
+Additional scripts cover aggregation across languages (`03_run_meta_evaluation_all_languages.sh`), baseline metrics (`03_run_meta_evaluation_baselines.sh`), and the context-window experiment (`03_run_meta_evaluation_context_windows.sh`). These expect the corresponding metric outputs to have been generated already.
 
 ## Fine-tuning
 
-`src/finetuning/` LoRA fine-tunes `Qwen/Qwen3-8B` separately for each of the four [evaluation scenarios](#evaluation-scenarios) on MQM-style error detection data.
+The fine-tuning code in `src/finetuning/` fine-tunes `Qwen/Qwen3-8B` with LoRA on MQM-style error detection data, training a separate model for each of the four [evaluation scenarios](#evaluation-scenarios).
 
 ```bash
 bash scripts/04_run_finetuning.sh
 ```
 
-By default, the driver prepares the training data before launching fine-tuning (set `RUN_PREPROCESSING=no` to reuse already preprocessed data) and writes model outputs under `outputs/finetuned/<run_name>`. It uses the settings in `src/finetuning/accelerate_config.yaml`; check the configured number of processes and GPU availability before running.
+By default, the script prepares the training data before launching fine-tuning (set `RUN_PREPROCESSING=no` to reuse already preprocessed data) and writes model outputs under `outputs/finetuned/<run_name>`. It uses the settings in `src/finetuning/accelerate_config.yaml`; check the configured number of processes and GPU availability before running.
 
 ## Quick start
 
@@ -192,8 +200,3 @@ This work has been accepted at Findings of EMNLP 2026. If you use this code or b
     pages = "39253--39276",
     ISBN = "979-8-89176-462-0"
 }
-```
-
-## License
-
-MIT. See [LICENSE](LICENSE).
