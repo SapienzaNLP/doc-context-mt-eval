@@ -11,7 +11,7 @@
 
 </div>
 
-This work investigates the impact of document-level context on LLM-based Machine Translation evaluation, considering the availability of human references, thinking mode, and task-specific fine-tuning. Results show that the benefits of document context vary across datasets and may partly stem from input repetition. Fine-tuning consistently improves evaluation performance, with larger gains when document context is available.
+> This work investigates the impact of document-level context on LLM-based Machine Translation evaluation, considering the availability of human references, thinking mode, and task-specific fine-tuning. Results show that the benefits of document context vary across datasets and may partly stem from input repetition. Fine-tuning consistently improves evaluation performance, with larger gains when document context is available.
 
 This repository contains the code for the paper *Exploring the Impact of Document Context on LLM-based Machine Translation Evaluation*, accepted at Findings of EMNLP 2026.
 
