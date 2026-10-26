@@ -192,7 +192,3 @@ If you use this code or build on our findings, please cite our paper:
     url = "https://aclanthology.org/2026.findings-emnlp.1839/",
 }
 ```
-
-## License
-
-MIT. See [LICENSE](LICENSE).
