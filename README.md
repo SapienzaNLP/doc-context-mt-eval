@@ -184,11 +184,18 @@ If you use this code or build on our findings, please cite our paper:
     author = "Aur, Marina Iuliana  and
       Perrella, Stefano  and
       Navigli, Roberto",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
     booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
     month = oct,
     year = "2026",
     address = "Budapest, Hungary",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2026.findings-emnlp.1839/",
+    pages = "39253--39276",
+    ISBN = "979-8-89176-462-0"
+}
 }
 ```
