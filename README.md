@@ -5,13 +5,13 @@
     LLM-based Machine Translation Evaluation
 </h1>
 
-<p align="center">
-  <img src="media/overview_approach.png" alt="Overview of the paper" width="100%">
-</p>
-
 [![Paper](https://img.shields.io/badge/EMNLP%202026%20Paper-red)](https://aclanthology.org/2026.findings-emnlp.1839/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MT Metrics Eval](https://shields.io/badge/-MT%20Metrics%20Eval-green?style=flat&logo=github&labelColor=gray)](https://github.com/google-research/mt-metrics-eval)
+
+<p align="center">
+  <img src="media/overview_approach.png" alt="Overview of the paper" width="100%">
+</p>
 
 </div>
 
