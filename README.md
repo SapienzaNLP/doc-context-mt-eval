@@ -20,13 +20,15 @@ This repository contains the official code for [**Exploring the Impact of Docume
 ```
 doc-context-mt-eval/
 ├── src/
-│   ├── data_preprocessing/   # WMT loading, MQM annotations, document context
-│   ├── evaluation/           # Prompts, model inference, error-span extraction
-│   ├── meta_evaluation/      # Span matching and meta-evaluation metrics
-│   └── finetuning/           # Training-data preparation and LoRA fine-tuning
-├── scripts/                  # Preprocessing, evaluation, meta-evaluation, fine-tuning scripts
+│   ├── data_preprocessing/   # 1. Prepares the WMT data with document context
+│   ├── evaluation/           # 2. Runs LLM-based error detection
+│   ├── meta_evaluation/      # 3. Compares predicted errors with human annotations
+│   └── finetuning/           # 4. Fine-tunes models with LoRA
+├── scripts/                  # Shell scripts that launch each stage (01_ to 04_)
+├── data-wmt/                 # WMT data (created on first run, not included)
+├── outputs/                  # Evaluation results and fine-tuned models (created on first run, not included)
 ├── pyproject.toml
-└── .gitignore
+└── LICENSE
 ```
 
 ## Setup
