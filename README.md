@@ -183,14 +183,22 @@ This work has been accepted at Findings of EMNLP 2026. If you use this code or b
 
 ```bibtex
 @inproceedings{aur-etal-2026-exploring,
-    title     = "Exploring the Impact of Document Context on {LLM}-based Machine Translation Evaluation",
-    author    = "Aur, Marina Iuliana  and
+    title = "Exploring the Impact of Document Context on {LLM}-based Machine Translation Evaluation",
+    author = "Aur, Marina Iuliana  and
       Perrella, Stefano  and
       Navigli, Roberto",
-    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2026",
-    year      = "2026",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
     publisher = "Association for Computational Linguistics",
-    note      = "To appear."
+    url = "https://aclanthology.org/2026.findings-emnlp.1839/",
+    pages = "39253--39276",
+    ISBN = "979-8-89176-462-0"
 }
 ```
 
