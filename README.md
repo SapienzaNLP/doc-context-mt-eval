@@ -7,8 +7,6 @@
 
 [![Paper](https://img.shields.io/badge/EMNLP%202026%20Paper-red)](https://aclanthology.org/2026.findings-emnlp.1839/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![vLLM](https://shields.io/badge/-vLLM-000000?style=flat&logo=github&labelColor=gray)](https://github.com/vllm-project/vllm)
-[![COMET](https://shields.io/badge/-COMET-2F4DC1?style=flat&logo=github&labelColor=gray)](https://github.com/Unbabel/COMET)
 [![MT Metrics Eval](https://shields.io/badge/-MT%20Metrics%20Eval-green?style=flat&logo=github&labelColor=gray)](https://github.com/google-research/mt-metrics-eval)
 
 </div>
