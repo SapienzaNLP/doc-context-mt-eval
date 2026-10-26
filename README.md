@@ -89,7 +89,7 @@ We evaluate each translation segment under four scenarios, crossing two axes:
 - **segment-level (SL) vs. document-level (DL) context**: whether the model receives as input only the segment or the full source and target documents;
 - **reference-free (RF) vs. reference-based (RB)**: whether the model also receives as input a human reference translation.
   
-When calling `src/evaluation/main_evaluation.py` directly, they are selected with two flags:
+When calling `src/evaluation/main_evaluation.py` directly, the scenarios are selected with two flags:
 
 | Scenario | `--include_document_context` | `--is_reference_less` |
 |---|---|---|
@@ -98,7 +98,7 @@ When calling `src/evaluation/main_evaluation.py` directly, they are selected wit
 | DL-RF (document-level, reference-free)  | yes | yes |
 | DL-RB (document-level, reference-based) | yes | no  |
 
-As a control, **SL-RF<sub>rep</sub>** repeats the segment instead of showing the full document, to separate the effect of document context from the effect of simply repeating the input. To run it, use the SL-RF flags and add `--repeat_segment yes`.
+As a control, **SL-RF<sub>rep</sub>** repeats the segment in the input instead of providing the full document, to separate the effect of document context from the effect of simply repeating the input. To run it, use the SL-RF flags and add `--repeat_segment yes`.
 
 `scripts/02_run_evaluation.sh` runs all four scenarios and the SL-RF<sub>rep</sub> control. The model, the language pairs and other settings are set through environment variables, for example:
 
