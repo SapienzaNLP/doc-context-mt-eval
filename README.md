@@ -76,7 +76,11 @@ bash scripts/01_run_preprocessing_eval.sh   # WMT24 + WMT25 -> test data for eva
 bash scripts/01_run_preprocessing_train.sh  # WMT22 + WMT23 -> training data for fine-tuning
 ```
 
-Preprocessed JSONL files are written to `data-wmt/preprocessed/mqm/<dataset>/preprocessed_<dataset>_<lp>.jsonl`, each example containing the target translation segment and the document-level information needed by the evaluation configurations.
+Preprocessed JSONL files are written to:
+
+`data-wmt/preprocessed/mqm/<dataset>/preprocessed_<dataset>_<lp>.jsonl`
+
+Each example containing the target translation segment and the document-level information needed by the evaluation configurations.
 
 To build the data for the context-window experiment from Section 6 of the paper (see [Evaluation scenarios](#evaluation-scenarios) for how to run it):
 
