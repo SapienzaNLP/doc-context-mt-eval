@@ -9,14 +9,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MT Metrics Eval](https://shields.io/badge/-MT%20Metrics%20Eval-green?style=flat&logo=github&labelColor=gray)](https://github.com/google-research/mt-metrics-eval)
 
+<img src="media/overview_approach.png" alt="Overview of the paper" width="100%">
+
 </div>
 
 > This work investigates the impact of document-level context on LLM-based Machine Translation evaluation, considering the availability of human references, thinking mode, and task-specific fine-tuning. Results show that the benefits of document context vary across datasets and may partly stem from input repetition. Fine-tuning consistently improves evaluation performance, with larger gains when document context is available.
-
-
-<p align="center">
-  <img src="media/overview_approach.png" alt="Overview of the paper" width="100%">
-</p>
 
 
 This repository contains the official code for [**Exploring the Impact of Document Context on LLM-based Machine Translation Evaluation**](https://aclanthology.org/2026.findings-emnlp.1839/) ([Marina Iuliana Aur](https://www.linkedin.com/in/marina-iuliana-aur-087bb3359/), [Stefano Perrella](https://www.linkedin.com/in/stefano-perrella-5022a622b/) and [Roberto Navigli](https://www.linkedin.com/in/robertonavigli/), Findings of EMNLP 2026).
