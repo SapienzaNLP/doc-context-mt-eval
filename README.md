@@ -89,7 +89,7 @@ We evaluate each translation segment under four scenarios, crossing two axes:
 - **segment-level (SL) vs. document-level (DL) context**: whether the model receives as input only the segment or the full source and target documents;
 - **reference-free (RF) vs. reference-based (RB)**: whether the model also receives as input a human reference translation.
   
-The same scenarios are used in evaluation and in fine-tuning. When calling `src/evaluation/main_evaluation.py` directly, they are selected with two flags:
+When calling `src/evaluation/main_evaluation.py` directly, they are selected with two flags:
 
 | Scenario | `--include_document_context` | `--is_reference_less` |
 |---|---|---|
