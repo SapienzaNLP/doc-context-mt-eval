@@ -154,7 +154,7 @@ The script first prepares the training data (set `RUN_PREPROCESSING=no` to reuse
 
 ## Quick start
 
-Preprocess the test data, run the four evaluation scenarios with Qwen3-32B on WMT24 English–German, and score the results:
+Preprocess the test data, run the four evaluation scenarios with Qwen3-32B on WMT24 English-German, and score the results:
 
 ```bash
 bash scripts/01_run_preprocessing_eval.sh
